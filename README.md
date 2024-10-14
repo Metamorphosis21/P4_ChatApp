@@ -34,4 +34,4 @@ The Chat App is licensed under the [insert license type] license.
 We would like to thank our development team, designers, and testers for their hard work and dedication to creating this app.
 
 ## Contact Us :
-For any questions, feedback, or support, please reach out to us at [insert contact email]. We're always happy to help! 😊
+For any questions, feedback, or support, please reach out to us at sai0binayak99@gmail.com & abhilash00003108884@gmail.com. We're always happy to help! 😊
