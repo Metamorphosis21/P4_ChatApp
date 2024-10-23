@@ -1,6 +1,6 @@
-import mongoose, { mongo } from "mongoose"
-import bcrypt from "bcrypt"
-import jwt from "jsonwebtoken"
+import mongoose, { mongo } from "mongoose";
+import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 const userSchema = new mongoose.Schema({
     username: {
@@ -39,21 +39,33 @@ const userSchema = new mongoose.Schema({
 
     refreshToken: {
         type: String
+    },
+
+    statusMessage: {  
+        type: String,
+        default: '',
+        maxlength: 150  
+    },
+
+    theme: {  
+        type: String,
+        enum: ['light', 'dark', 'blue'], 
+        default: 'light'
     }
 
-}, {timestamps: true})
+}, {timestamps: true});
 
 // before saving to DB check if password is modified
 userSchema.pre("save", async function(next){
     if(!this.isModified("password")) return next();
 
     this.password = await bcrypt.hash(this.password, 10);
-    next()
-})
+    next();
+});
 
 userSchema.methods.isPasswordCorrect = async function(password){
-    return await bcrypt.compare(password, this.password)   
-}
+    return await bcrypt.compare(password, this.password);  
+};
 
 userSchema.methods.generateAccessToken = function(){
     return jwt.sign(
@@ -67,8 +79,8 @@ userSchema.methods.generateAccessToken = function(){
         {
             expiresIn: process.env.ACCESS_TOKEN_EXPIRY
         }
-    )
-}
+    );
+};
 
 userSchema.methods.generateRefreshToken = function(){
     return jwt.sign(
@@ -79,8 +91,7 @@ userSchema.methods.generateRefreshToken = function(){
         {
             expiresIn: process.env.REFRESH_TOKEN_EXPIRY
         }
-    )
-}
+    );
+};
 
 export const User = mongoose.model("User", userSchema);
-
