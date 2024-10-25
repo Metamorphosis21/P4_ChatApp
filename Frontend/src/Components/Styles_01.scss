@@ -1,0 +1,52 @@
+$dark: rgb(0, 0, 0);
+$medium: rgb(33, 33, 34);
+$light: rgb(0, 0, 0);
+
+$headfont:"Orbitron", sans-serif;
+$bodyfont:"Audiowide", sans-serif;
+
+.landing-page {
+    background: radial-gradient(circle, $dark, $medium 50%, $light 90%);
+}
+
+.navbar {
+    backdrop-filter: blur(40px);
+    background-color: rgba(0, 0, 0, 0.5);
+    font-family: $headfont;
+}
+
+.navlinks ul li {
+    position: relative;
+    transition: all 0.3s ease;
+    color: #bebebe;
+    font-weight: 600;
+    
+    &::after {
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background-color: rgb(161, 161, 161);
+        transition: width 0.3s ease;
+    }
+
+    &:hover::after {
+        width: 100%;
+    }
+}
+
+.bgGrid{
+    & h2{
+        font-family: $headfont;
+        font-weight: 600;
+        letter-spacing: 1px;
+        font-size: 22px;
+    }
+
+    & p{
+        font-family: $bodyfont;
+        font-size: 16px;
+    }
+}
