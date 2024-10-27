@@ -10,6 +10,7 @@ const messageSchema = new mongoose.Schema({
     sender: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
+        index: true,
         required: true
     },
     
@@ -22,6 +23,7 @@ const messageSchema = new mongoose.Schema({
     chatRoom: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "ChatRoom",
+        index: true,
         required: false
     },
 
@@ -57,18 +59,18 @@ const messageSchema = new mongoose.Schema({
         }
     ]
 
-
-
-
 }, {timestamps: true})
 // logic for handling msgs
 messageSchema.pre("save", async function(next){
     if(!this.receiver && !this.chatRoom){
         return next(new Error("Either receiver or chatRoom must be provided."))
     }
+    
     else if(this.receiver && this.chatRoom){
         return next(new Error("Both receiver and chatRoom cannot be provided"))
     }
 
     next();
 })
+
+export const Message = mongoose.model("Message", messageSchema);
