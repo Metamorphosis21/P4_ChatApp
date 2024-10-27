@@ -1,5 +1,8 @@
+/* eslint-disable react/prop-types */
 import "./Styles_01.scss";
 import styled from "styled-components";
+import LoginSignUp from "./LogInSignUp/LoginSignUp";
+import { useState } from "react";
 
 // import Pic1 from "../Images/bgImg_3.png";
 // import Pic2 from "../Images/bgImg_1.png";
@@ -7,16 +10,26 @@ import styled from "styled-components";
 
 function LandingPage() {
 
+  const [showModal , setShowModal] = useState(false)
+
+  function displayLoginModal(){
+    setShowModal(!showModal)
+    console.log(showModal)
+  }
+
   const LogInButton = () => {
     return (
       <StyledLogInWrapper>
-        <button>LogIn</button>
+        <button onClick={displayLoginModal}>LogIn</button>
+        {
+          showModal && <LoginSignUp/>
+        }
       </StyledLogInWrapper>
     );
   };
   const StyledLogInWrapper = styled.div`
     button {
-      color: #fff;
+      color: aliceblue;
       padding: 0.5em 1.5em;
       font-size: 15px;
       border-radius: 0.5em;
@@ -133,20 +146,19 @@ function LandingPage() {
     }
   `;
 
-  const GetStartedButton = () => {
-    return (
+  const GetStartedButton = ({content}) => {
+    return (    
       <StyledGetStartedWrapper>
         <button className="button" data-text="Awesome">
-          <span className="actual-text">&nbsp;GetStarted&nbsp;</span>
+          <span className="actual-text">&nbsp;{content}&nbsp;</span>
           <span aria-hidden="true" className="hover-text">
-          &nbsp;GetStarted&nbsp;
+          &nbsp;{content}&nbsp;
           </span>
         </button>
       </StyledGetStartedWrapper>
     );
   };
   const StyledGetStartedWrapper = styled.div`
-    /* === removing default button style ===*/
     .button {
       margin: 0;
       height: auto;
@@ -156,7 +168,6 @@ function LandingPage() {
       cursor: pointer;
     }
 
-    /* button styling */
     .button {
       --border-right: 3px;
       --text-stroke-color: rgba(240 , 240 , 240 , 0.6);
@@ -171,7 +182,7 @@ function LandingPage() {
       color: transparent;
       -webkit-text-stroke: 1px var(--text-stroke-color);
     }
-    /* this is the text, when you hover on button */
+
     .hover-text {
       position: absolute;
       box-sizing: border-box;
@@ -184,69 +195,69 @@ function LandingPage() {
       transition: 0.5s;
       -webkit-text-stroke: 1px var(--animation-color);
     }
-    /* hover */
+
     .button:hover .hover-text {
       width: 100%;
       filter: drop-shadow(0 0 10px var(--animation-color));
     }
   `;
 
-  const ChatNowButton = () => {
-    return (
-      <StyledChatNowWrapper>
-        <button>Chat Now</button>
-      </StyledChatNowWrapper>
-    );
-  };
-  const StyledChatNowWrapper = styled.div`
-  button {
-  width: 10em;
-  position: relative;
-  height: 3.5em;
-  border: 3px ridge #149CEA;
-  outline: none;
-  background-color: transparent;
-  color: aliceblue;
-  transition: .5s;
-  border-radius: 0.3em;
-  font-family: Orbitron;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-}
+//   const ChatNowButton = () => {
+//     return (
+//       <StyledChatNowWrapper>
+//         <button>Chat Now</button>
+//       </StyledChatNowWrapper>
+//     );
+//   };
+//   const StyledChatNowWrapper = styled.div`
+//   button {
+//   width: 10em;
+//   position: relative;
+//   height: 3.5em;
+//   border: 3px ridge #149CEA;
+//   outline: none;
+//   background-color: transparent;
+//   color: aliceblue;
+//   transition: .5s;
+//   border-radius: 0.3em;
+//   font-family: Orbitron;
+//   font-size: 16px;
+//   font-weight: bold;
+//   cursor: pointer;
+// }
 
-button::after {
-  content: "";
-  position: absolute;
-  top: -10px;
-  left: 3%;
-  width: 95%;
-  height: 40%;
-  background-color: #000;
-  transition: 0.5s;
-  transform-origin: center;
-}
+// button::after {
+//   content: "";
+//   position: absolute;
+//   top: -10px;
+//   left: 3%;
+//   width: 95%;
+//   height: 40%;
+//   background-color: #000;
+//   transition: 0.5s;
+//   transform-origin: center;
+// }
 
-button::before {
-  content: "";
-  transform-origin: center;
-  position: absolute;
-  top: 80%;
-  left: 3%;
-  width: 95%;
-  height: 40%;
-  background-color: #000;
-  transition: 0.5s;
-}
+// button::before {
+//   content: "";
+//   transform-origin: center;
+//   position: absolute;
+//   top: 80%;
+//   left: 3%;
+//   width: 95%;
+//   height: 40%;
+//   background-color: #000;
+//   transition: 0.5s;
+// }
 
-button:hover::before, button:hover::after {
-  transform: scale(0)
-}
+// button:hover::before, button:hover::after {
+//   transform: scale(0)
+// }
 
-button:hover {
-  box-shadow: inset 0px 0px 25px #1479EA;
-}
-`;
+// button:hover {
+//   box-shadow: inset 0px 0px 25px #1479EA;
+// }
+// `;
 
   return (
     <div className="landing-page h-[100vh]">
@@ -265,7 +276,7 @@ button:hover {
             </li>
           </ul>
           <div className="login-btn">
-            <LogInButton />
+            <LogInButton/>
           </div>
         </div>
       </div>
@@ -278,7 +289,7 @@ button:hover {
             </h2>
             <p className="para1"></p>
             <div className="getStarted">
-              <GetStartedButton/>
+              <GetStartedButton content={'GetStarted'}/>
             </div>
           </div>
           <div className="bgImg2 bg-yellow-600 row-span-3 col-span-2 flex flex-col justify-center gap-5 p-3">
@@ -315,7 +326,7 @@ button:hover {
             </h2>
             <p className="para4"></p>
             <div className="chatNow-btn">
-              <ChatNowButton/>
+            <GetStartedButton content={'ChatNow'}/>
             </div>
           </div>
         </div>
@@ -325,4 +336,3 @@ button:hover {
 }
 
 export default LandingPage;
-// https://marketplace.canva.com/EAFduPmf5Lw/1/0/1600w/canva-lA32ra6HgjI.jpg
